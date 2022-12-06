@@ -1,3 +1,12 @@
+.giphy-form {
+  margin: 20px 0;
+}
+
+.giphy-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .giphy-grid {
   max-height: 400px;
   overflow-y: auto;

@@ -11,20 +11,11 @@
  * limitations under the License.
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { BlockAttributes } from "widget-sdk";
+import GiphySearch from "./GiphySearch";
 
 import './Widget.css'
-import { Grid } from '@giphy/react-components'
-import { GiphyFetch } from '@giphy/js-fetch-api'
-
-// use @giphy/js-fetch-api to fetch gifs, instantiate with your api key
-const gf = new GiphyFetch('nTvsdE0PFnmbYrdIzdGXZtXfuc2Lfsxi')
-
-const searchTerm = 'teamwork'
-
-// configure your fetch: fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
-const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
 
 /**
  * React Component
@@ -33,13 +24,27 @@ export interface CustomWidgetProps extends BlockAttributes {
   message: string;
 }
 
-export const CustomWidget = ({ message, name, contentLanguage }: CustomWidgetProps): ReactElement => {
+export const CustomWidget = ({ message, name }: CustomWidgetProps): ReactElement => {
+  const [search, setSearch] = useState('');
+
+  const handleSubmit = (e: Event) => {
+    e.preventDefault()
+  }
+
+  const handleChange = (e: Event) => {
+    e.preventDefault()
+    setSearch(e.target.value)
+  }
+
   return (
     <>
-      {/* <p>{contentLanguage}</p> */}
       <p>Hello {message}! </p>
       <p>I'm {name}.</p>
-      <Grid width={800} columns={3} fetchGifs={fetchGifs} key={searchTerm} />
+      <form className="giphy-form" onSubmit={handleSubmit}>
+        <label htmlFor="search">Search for a GIF</label>
+        <input id="search" name="search" type="text" onChange={handleChange}/>
+      </form>
+      <GiphySearch searchTerm={search}/>
     </>
   )
 };
