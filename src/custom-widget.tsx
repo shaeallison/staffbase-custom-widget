@@ -14,6 +14,18 @@
 import React, { ReactElement } from "react";
 import { BlockAttributes } from "widget-sdk";
 
+import './Widget.css'
+import { Grid } from '@giphy/react-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+
+// use @giphy/js-fetch-api to fetch gifs, instantiate with your api key
+const gf = new GiphyFetch('nTvsdE0PFnmbYrdIzdGXZtXfuc2Lfsxi')
+
+const searchTerm = 'teamwork'
+
+// configure your fetch: fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
+const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
+
 /**
  * React Component
  */
@@ -24,8 +36,10 @@ export interface CustomWidgetProps extends BlockAttributes {
 export const CustomWidget = ({ message, name, contentLanguage }: CustomWidgetProps): ReactElement => {
   return (
     <>
-      <p>Hello {message}! {contentLanguage}</p>
+      {/* <p>{contentLanguage}</p> */}
+      <p>Hello {message}! </p>
       <p>I'm {name}.</p>
+      <Grid width={800} columns={3} fetchGifs={fetchGifs} key={searchTerm} />
     </>
   )
 };
