@@ -12,12 +12,15 @@ const GiphySearch = (props: any) => {
   }, [searchTerm]);
 
   return (
-    <Grid
-      width={800}
-      columns={3}
-      fetchGifs={(offset: number) => gf.search(searchTerm, { offset, limit: 10 })}
-      key={searchTerm}
-    />
+    <div className="giphy-grid-wrapper">
+      {/* add media breakpoints for cols and width */}
+      <Grid
+        width={800}
+        columns={3}
+        fetchGifs={(offset: number) => gf.search(searchTerm, { offset, limit: 10 })}
+        key={searchTerm}
+      />
+    </div>
   )
 }
 

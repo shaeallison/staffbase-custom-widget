@@ -7,7 +7,8 @@
   margin-bottom: 10px;
 }
 
-.giphy-grid {
+.giphy-grid-wrapper {
   max-height: 400px;
-  overflow-y: auto;
+  width: 100%;
+  overflow: auto;
 }
